@@ -89,6 +89,29 @@ public class Bildbetrachter extends JFrame {
             });
         } // END FOR
 
+        this.jButtonNext.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                for (int i = 0; i < jRadios.length; i++) {
+                    int picture = i;
+                    if (picture > 3) {
+                        picture = 0;
+                    } else {
+                        ++picture;
+                    }
+                    jLabelPictures.setIcon(jIcons[picture]);
+                }
+
+            } // END OVERRIDE jButtonNext
+        });
+
+        this.jButtonPrev.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            } // END OVERRIDE jButtonPrev
+        });
+
     } // END void initEvents()
 
 } // END class Bildbetrachter
