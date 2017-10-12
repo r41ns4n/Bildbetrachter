@@ -16,6 +16,7 @@ public class Bildbetrachter extends JFrame {
     private Icon[] jIcons;
     private JScrollPane jScrollPanePictures;
     private JLabel jLabelPictures;
+    private int pictureNumber;
 
 
     public Bildbetrachter() {
@@ -92,15 +93,16 @@ public class Bildbetrachter extends JFrame {
         this.jButtonNext.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                for (int i = 0; i < jRadios.length; i++) {
-                    int picture = i;
-                    if (picture > 3) {
-                        picture = 0;
+
+                      if (pictureNumber < jIcons.length -1) {
+                          jLabelPictures.setIcon(jIcons[pictureNumber + 1]);
+                          jRadios[pictureNumber + 1].setSelected(true);
+                          ++pictureNumber;
                     } else {
-                        ++picture;
+                        pictureNumber = 0;
+                          jLabelPictures.setIcon(jIcons[0]);
+                          jRadios[0].setSelected(true);
                     }
-                    jLabelPictures.setIcon(jIcons[picture]);
-                }
 
             } // END OVERRIDE jButtonNext
         });
