@@ -62,7 +62,7 @@ public class Bildbetrachter extends JFrame {
 
         // GENERATE ICON ARRAY
         jIcons = new Icon[4];
-        String src = "D:\\G I3A\\Anwendungsentwicklung\\bildbetrachter\\Bild";
+        String src = "D:\\G I3A\\Anwendungsentwicklung\\IntelliJ\\projects\\Bildbetrachter\\pics\\Bild";
         for (int i = 0; i < jIcons.length; i++) {
             jIcons[i] = new ImageIcon(src + (i + 1) + ".jpg");
         } // END IF
@@ -94,15 +94,15 @@ public class Bildbetrachter extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                      if (pictureNumber < jIcons.length -1) {
-                          jLabelPictures.setIcon(jIcons[pictureNumber + 1]);
-                          jRadios[pictureNumber + 1].setSelected(true);
-                          ++pictureNumber;
-                    } else {
-                        pictureNumber = 0;
-                          jLabelPictures.setIcon(jIcons[0]);
-                          jRadios[0].setSelected(true);
-                    }
+                if (pictureNumber < jIcons.length - 1) {
+                    jLabelPictures.setIcon(jIcons[pictureNumber + 1]);
+                    jRadios[pictureNumber + 1].setSelected(true);
+                    ++pictureNumber;
+                } else {
+                    pictureNumber = 0;
+                    jLabelPictures.setIcon(jIcons[pictureNumber]);
+                    jRadios[pictureNumber].setSelected(true);
+                }
 
             } // END OVERRIDE jButtonNext
         });
@@ -110,6 +110,16 @@ public class Bildbetrachter extends JFrame {
         this.jButtonPrev.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
+                if (pictureNumber > 0) {
+                    jLabelPictures.setIcon(jIcons[pictureNumber - 1]);
+                    jRadios[pictureNumber - 1].setSelected(true);
+                    pictureNumber--;
+                } else {
+                    pictureNumber = jIcons.length - 1;
+                    jLabelPictures.setIcon(jIcons[pictureNumber]);
+                    jRadios[pictureNumber].setSelected(true);
+                }
 
             } // END OVERRIDE jButtonPrev
         });
