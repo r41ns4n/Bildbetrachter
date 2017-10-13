@@ -6,6 +6,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class Bildbetrachter extends JFrame {
 
@@ -17,17 +19,19 @@ public class Bildbetrachter extends JFrame {
     private JScrollPane jScrollPanePictures;
     private JLabel jLabelPictures;
     private int pictureNumber;
+    private JDialog dialog;
 
 
     public Bildbetrachter() {
         super("Bilder");
         this.setSize(400, 400);
-        this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        //this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        this.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
         this.setLocationRelativeTo(null);
         initComponents();
         initEvents();
         this.setVisible(true);
-    } // END Bildbetrachter()
+    } // END CONSTRUCTOR Bildbetrachter()
 
 
     private void initComponents() {
@@ -80,6 +84,7 @@ public class Bildbetrachter extends JFrame {
 
 
     private void initEvents() {
+        // ADD BUTTONS WITH ACTIONLISTENER
         for (int i = 0; i < jRadios.length; i++) {
             int picture = i;
             this.jRadios[picture].addActionListener(new ActionListener() {
@@ -90,6 +95,7 @@ public class Bildbetrachter extends JFrame {
             });
         } // END FOR
 
+        // ADD BUTTONNEXT WITH ACTIONLISTENER
         this.jButtonNext.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -107,6 +113,7 @@ public class Bildbetrachter extends JFrame {
             } // END OVERRIDE jButtonNext
         });
 
+        // ADD BUTTONPREV WITH ACTIONLISTENER
         this.jButtonPrev.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -124,6 +131,29 @@ public class Bildbetrachter extends JFrame {
             } // END OVERRIDE jButtonPrev
         });
 
+        // ADD WINDOWCLOSE WITH ACTIONLISTENER
+        this.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                exit();
+            }
+        });
+
     } // END void initEvents()
+
+
+    // DIALOG METHOD TO CLOSE
+    private void exit() {
+        int result = JOptionPane.showConfirmDialog(null,
+                "Möchten Sie das Programm jetzt beenden?",
+                "Beenden bestätigen",
+                JOptionPane.YES_NO_OPTION);
+
+        switch (result) {
+            case JOptionPane.YES_OPTION:
+                System.exit(0);
+        } // END SWITCH(RESULT)
+
+    } // END void exit()
 
 } // END class Bildbetrachter
