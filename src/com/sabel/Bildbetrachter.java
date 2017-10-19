@@ -8,6 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.net.URL;
 
 public class Bildbetrachter extends JFrame {
 
@@ -68,9 +69,9 @@ public class Bildbetrachter extends JFrame {
 
         // GENERATE ICON ARRAY
         jIcons = new Icon[5];
-        String src = "D:\\G I3A\\Anwendungsentwicklung\\IntelliJ\\projects\\Bildbetrachter\\pics\\Bild";
+        // String src = "D:\\G I3A\\Anwendungsentwicklung\\IntelliJ\\projects\\Bildbetrachter\\pics\\Bild";
         for (int i = 0; i < jIcons.length; i++) {
-            jIcons[i] = new ImageIcon(src + (i + 1) + ".jpg");
+            jIcons[i] = new ImageIcon(getClass().getResource("/pics/Bild" + (i + 1) + ".jpg"));
         } // END IF
 
         // START WHIT THE FIRST PICTURE
