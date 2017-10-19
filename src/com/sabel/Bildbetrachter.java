@@ -12,7 +12,7 @@ import java.awt.event.WindowEvent;
 public class Bildbetrachter extends JFrame {
 
     private JPanel jPanelWest, jPanelSouth;
-    private JButton jButtonPrev, jButtonNext;
+    private JButton jButtonPrev, jButtonNext, jButtonSelect;
     private ButtonGroup buttonGroup;
     private JRadioButton[] jRadios;
     private Icon[] jIcons;
@@ -42,10 +42,10 @@ public class Bildbetrachter extends JFrame {
         jPanelSouth = new JPanel();
 
         // GENERATE RADIOBUTTONS AND SET AS GROUP
-        jRadios = new JRadioButton[4];
+        jRadios = new JRadioButton[5];
         buttonGroup = new ButtonGroup();
-        for (int i = 0; i < 4; i++) {
-            jRadios[i] = new JRadioButton("Bild" + (i + 1));
+        for (int i = 0; i < 5; i++) {
+            jRadios[i] = new JRadioButton("Bild " + (i + 1));
             buttonGroup.add(jRadios[i]);
             jPanelWest.add(jRadios[i]);
         } // END IF
@@ -56,6 +56,8 @@ public class Bildbetrachter extends JFrame {
         // GENERATE BUTTONS AND ADD TO PANEL
         jButtonPrev = new JButton("Vorheriges Bild");
         jButtonNext = new JButton("Nächstes Bild");
+        jButtonSelect = new JButton("Select");
+        jPanelSouth.add(jButtonSelect);
         jPanelSouth.add(jButtonPrev);
         jPanelSouth.add(jButtonNext);
 
@@ -65,7 +67,7 @@ public class Bildbetrachter extends JFrame {
         // JScrollPane jScrollPanePicture1 = new JScrollPane(jLabelPicture1);
 
         // GENERATE ICON ARRAY
-        jIcons = new Icon[4];
+        jIcons = new Icon[5];
         String src = "D:\\G I3A\\Anwendungsentwicklung\\IntelliJ\\projects\\Bildbetrachter\\pics\\Bild";
         for (int i = 0; i < jIcons.length; i++) {
             jIcons[i] = new ImageIcon(src + (i + 1) + ".jpg");
@@ -90,7 +92,7 @@ public class Bildbetrachter extends JFrame {
             this.jRadios[picture].addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    jLabelPictures.setIcon(jIcons[picture]);
+                   jLabelPictures.setIcon(jIcons[picture]);
                 } // END OVERRIDE jRadios[picture]
             });
         } // END FOR
@@ -106,8 +108,7 @@ public class Bildbetrachter extends JFrame {
                     ++pictureNumber;
                 } else {
                     pictureNumber = 0;
-                    jLabelPictures.setIcon(jIcons[pictureNumber]);
-                    jRadios[pictureNumber].setSelected(true);
+                    updatePicture();
                 }
 
             } // END OVERRIDE jButtonNext
@@ -124,12 +125,14 @@ public class Bildbetrachter extends JFrame {
                     pictureNumber--;
                 } else {
                     pictureNumber = jIcons.length - 1;
-                    jLabelPictures.setIcon(jIcons[pictureNumber]);
-                    jRadios[pictureNumber].setSelected(true);
+                    updatePicture();
                 }
 
             } // END OVERRIDE jButtonPrev
         });
+
+        // ADD BUTTONSELECT FOR FILESELECT
+
 
         // ADD WINDOWCLOSE WITH ACTIONLISTENER
         this.addWindowListener(new WindowAdapter() {
@@ -141,17 +144,22 @@ public class Bildbetrachter extends JFrame {
 
     } // END void initEvents()
 
+    // METHODE RENEW PICTURE
+    private void updatePicture() {
+        jLabelPictures.setIcon(jIcons[pictureNumber]);
+        jRadios[pictureNumber].setSelected(true);
+    } // END void updatePicture()
 
     // DIALOG METHOD TO CLOSE
     private void exit() {
-        int result = JOptionPane.showConfirmDialog(null,
+        int result = JOptionPane.showConfirmDialog(Bildbetrachter.this,
                 "Möchten Sie das Programm jetzt beenden?",
                 "Beenden bestätigen",
                 JOptionPane.YES_NO_OPTION);
 
         switch (result) {
             case JOptionPane.YES_OPTION:
-                System.exit(0);
+                System.exit(NORMAL);
         } // END SWITCH(RESULT)
 
     } // END void exit()
